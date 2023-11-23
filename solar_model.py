@@ -24,19 +24,20 @@ def calculate_force(body, space_objects):
 
         r = np.array([body.x - obj.x, body.y - obj.y])  # Вектор, направленный от body к obj
         absr = np.linalg.norm(r)  # Модуль этого вектора
-        if absr >= body.R + obj.R:
+        if absr <= body.R + obj.R:
             r = r/absr * (body.R + obj.R)  # FIXME: обработка аномалий при прохождении одного тела сквозь другое
 
-        body_force = ((gravitational_constant * body.m * obj.m) / absr**3) * r
+        body_force = ((gravitational_constant * body.m * obj.m) / absr**3) * -r
+
         # Вектор силы, действующей со стороны obj на body
         obj_force = - body_force
 
         # Покомпонентно раскладываем силы, действующие на тела
-        body.Fx = body_force[0]
-        body.Fy = body_force[1]
+        body.Fx += body_force[0]
+        body.Fy += body_force[1]
 
-        obj.Fx = obj_force[0]
-        obj.Fy = obj_force[1]
+        obj.Fx += obj_force[0]
+        obj.Fy += obj_force[1]
 
 
 def move_space_object(body, dt):
@@ -48,12 +49,17 @@ def move_space_object(body, dt):
     """
     ax = body.Fx/body.m
     ay = body.Fy/body.m
+    print(body.Fx, body.m)
 
+    #print(body. Fx, body.Vx, ax, dt, body.m, end= " || \n")
     body.Vx += ax * dt
     body.Vy += ay * dt
 
     body.x += body.Vx * dt
     body.y += body.Vy * dt
+
+    body.Fx = 0
+    body.Fy = 0
 
 
 def recalculate_space_objects_positions(space_objects, dt):

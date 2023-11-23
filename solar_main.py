@@ -10,7 +10,6 @@ import thorpy
 import time
 import numpy as np
 
-print('it works')
 timer = None
 
 alive = True

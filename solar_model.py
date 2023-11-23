@@ -24,8 +24,9 @@ def calculate_force(body, space_objects):
 
         r = np.array([body.x - obj.x, body.y - obj.y])  # Вектор, направленный от body к obj
         absr = np.linalg.norm(r)  # Модуль этого вектора
-        if absr <= body.R + obj.R:
-            r = r/absr * (body.R + obj.R)  # FIXME: обработка аномалий при прохождении одного тела сквозь другое
+
+        eps = 10**7
+        absr = np.sqrt(absr**2 + eps**2)
 
         body_force = ((gravitational_constant * body.m * obj.m) / absr**3) * -r
 

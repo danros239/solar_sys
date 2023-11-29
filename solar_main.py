@@ -37,6 +37,9 @@ def execution(delta):
     global model_time
     global displayed_time
     recalculate_space_objects_positions([dr.obj for dr in space_objects], delta)
+    #if len(space_objects) > 0:
+        #max_distance = max([max(abs(obj.obj.x), abs(obj.obj.y)) for obj in space_objects])
+        #calculate_scale_factor(max_distance)
     model_time += delta
 
 
@@ -81,7 +84,8 @@ def handle_events(events, menu):
             alive = False
 
 def slider_to_real(val):
-    return np.exp(5 + val)
+
+    return np.exp(10 + np.sin(np.pi*val/20)*5)
 
 def slider_reaction(event):
     global time_scale

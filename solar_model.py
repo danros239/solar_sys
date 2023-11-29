@@ -37,8 +37,8 @@ def calculate_force(body, space_objects):
         body.Fx += body_force[0]
         body.Fy += body_force[1]
 
-        obj.Fx += obj_force[0]
-        obj.Fy += obj_force[1]
+        #obj.Fx += obj_force[0]
+        #obj.Fy += obj_force[1]
 
 
 def move_space_object(body, dt):
@@ -50,9 +50,7 @@ def move_space_object(body, dt):
     """
     ax = body.Fx/body.m
     ay = body.Fy/body.m
-    print(body.Fx, body.m)
 
-    #print(body. Fx, body.Vx, ax, dt, body.m, end= " || \n")
     body.Vx += ax * dt
     body.Vy += ay * dt
 
